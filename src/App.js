@@ -19,7 +19,6 @@ class App extends Component {
     
     // Get posts from all Categories
     PostAPI.getAll().then(posts => {
-      console.log(posts);
       this.setState({posts});
     })
 
@@ -51,7 +50,7 @@ class App extends Component {
           }
         </div>
         <div>
-          <h3>posts from the react category</h3>
+          <h3>posts from the redux category</h3>
           {
             Array.isArray(this.state.reduxPosts) ? this.state.reduxPosts.map((post, index) => (
              <li key={post.id}> <b>{post.title}</b> / {post.body} </li> )) : 'state is empty'
