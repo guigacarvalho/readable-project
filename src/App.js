@@ -1,64 +1,44 @@
 import React, { Component } from 'react';
+import '../node_modules/milligram/dist/milligram.css';
 import './App.css';
-import * as CategoryAPI from './utils/CategoryAPI.js';
-import * as PostAPI from './utils/PostAPI.js';
-
+import { connect } from 'react-redux'
+import { BrowserRouter, Route} from 'react-router-dom'
+import PostsList from './components/PostsList'
+import CategoriesList from './components/CategoriesList'
+import * as Actions from './actions/'
 
 class App extends Component {
   state = {
-    categories: [],
-    posts: [],
-    reduxPosts: [],
+    categories: [], 
+    posts:[],
   }
 
   componentDidMount() {
     // Get all categories
-    CategoryAPI.getAll().then(categories => {
-      this.setState({categories});
-    })
-    
+    this.props.dispatch(Actions.fetchCategories());
+
     // Get posts from all Categories
-    PostAPI.getAll().then(posts => {
-      this.setState({posts});
-    })
-
-    // Get posts from the redux Categories
-    CategoryAPI.getPosts('redux').then(reduxPosts => {
-      this.setState({reduxPosts});
-    })
-
+    this.props.dispatch(Actions.fetchPosts());
   }
 
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <h2>Welcome to Readable</h2>
+      <BrowserRouter>
+        <Route exact path='/' render={() => (
+        <div className="App">
+          <h1>= readable =</h1>
+          <CategoriesList categories={this.props.categories}></CategoriesList>
+          <PostsList posts={this.props.posts} category=""></PostsList>
         </div>
-        <div>
-          <h3>categories</h3>
-          {
-            Array.isArray(this.state.categories) ? this.state.categories.map((category, index) => (
-             <li key={category.path}> <b>{category.name}</b> / {category.path} </li> )) : 'state is empty'
-          }
-        </div>
-        <div>
-          <h3>posts from all categories</h3>
-          {
-            Array.isArray(this.state.posts) ? this.state.posts.map((post, index) => (
-             <li key={post.id}> <b>{post.title}</b> / {post.body} </li> )) : 'state is empty'
-          }
-        </div>
-        <div>
-          <h3>posts from the redux category</h3>
-          {
-            Array.isArray(this.state.reduxPosts) ? this.state.reduxPosts.map((post, index) => (
-             <li key={post.id}> <b>{post.title}</b> / {post.body} </li> )) : 'state is empty'
-          }
-        </div>
-      </div>
+          )}/>
+      </BrowserRouter>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state, props) => ({
+  posts: state.posts,
+  categories: state.categories
+});
+
+export default connect(mapStateToProps)(App);
