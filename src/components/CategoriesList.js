@@ -1,20 +1,34 @@
 import React from 'react'
-const PostsList = ({categories}) => (
-    <div>
-        <h3>= categories =</h3>
-        <div className="row">
-            {
-                Array.isArray(categories) 
-                ? categories.map((category, index) => (
-                    <div className="column" key={category.path}>
-                        <a className="button" href={category.path}>
-                           {category.name}
-                        </a>
-                    </div> )) 
-                : 'state is empty'
-            }
-        </div>
-    </div>
-)
+import { connect } from 'react-redux'
+import * as Actions from '../actions/'
+import {NavLink} from 'react-router-dom'
 
-export default PostsList
+class CategoriesList extends React.Component {
+    componentDidMount() {
+        this.props.dispatch(Actions.fetchCategories());
+    }
+    render(){
+        const categories = this.props.categories
+        return (
+                <div>
+                    <NavLink to="/" className="button button-small button-clear">
+                            Home
+                    </NavLink>
+                    {
+                    Array.isArray(categories) 
+                    ? categories.map(({name, path}) => (
+                        <NavLink to={`/category/${path}`} key={path} className="button button-small button-clear">
+                            {name}
+                        </NavLink>
+                        )) 
+                    : 'no categories to select from'
+                }
+            </div>
+        )
+    }
+}
+const mapStateToProps = (state, props) => ({
+    categories: state.categories,
+});
+  
+export default connect(mapStateToProps)(CategoriesList);
