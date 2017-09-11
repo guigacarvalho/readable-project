@@ -1,26 +1,74 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import * as Actions from '../actions/'
+import { Link } from 'react-router-dom'
 
-const PostsList = ({posts, category}) => (
-    <div>
-          <h3>= posts from {category ? category : 'all categories' } =</h3>
-          {
-            Array.isArray(posts) ? posts.map((post, index) => (
-             <div key={post.id}> 
-             <hr/> 
-             <h4>{post.title}</h4>
-              by {post.author} | category: {post.category}
-             <br/>
-              <button className="button button-small button-clear">{post.voteScore} VoteScore</button> |
-              <button className="button button-small button-clear">Upvote</button> |
-              <button className="button button-small button-clear">DownVote</button> |
-              <button className="button button-small button-clear">Edit️</button> |
-              <button className="button button-small button-clear">Delete</button> |
-              <button className="button button-small button-clear">Comment</button>
-              <br/>
-             {post.body} 
-             </div> )) : 'no posts to show'
-          }
-        </div>
-)
+class PostsList extends React.Component {
+  upVote(postId) {
+    this.props.dispatch(Actions.voteUp(postId));
+    // this.updatePostsList(this.props);
+  }
 
-export default PostsList
+  downVote(postId){
+    this.props.dispatch(Actions.voteDown(postId));
+    // this.updatePostsList(this.props);
+  }
+  updatePostsList(props) {
+    const category = props.match.params.path;
+    if(category) {
+      // Get posts from all Categories
+      this.props.dispatch(Actions.fetchPostsFromCategory(category));
+    } else {
+      // Get posts from all Categories
+      this.props.dispatch(Actions.fetchPosts());
+    }
+  }
+  componentDidMount() {
+    this.updatePostsList(this.props)
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.location !== this.props.location) {
+      // navigated!
+      this.updatePostsList(nextProps)
+    }
+  }
+
+  
+  render(){
+    const {posts} = this.props
+    const {path} = this.props.match ? this.props.match.params : {path: null};
+    return (
+      <div>
+        <h3>= {path ? `posts from ${path}` : 'all posts' } =</h3>
+        {
+          Array.isArray(posts) && posts.length > 0 ? posts.map((post, index) => (
+          <div key={post.id}>
+          <hr/> 
+          <h4>{post.title}</h4>
+          <div className="ToolBar">
+            <button className="button button-clear button-small controls"># {post.voteScore}</button> |
+            <button className="button button-clear button-small controls"><span role="img" aria-label="upvote" onClick={()=>this.upVote(post.id)}>👍</span></button> |
+            <button className="button button-clear button-small controls"><span role="img" aria-label="downvote" onClick={()=>this.downVote(post.id)}>👎</span></button> |
+            <button className="button button-clear button-small controls"><span role="img" aria-label="edit">📝</span></button> |
+            <button className="button button-clear button-small controls"><span role="img" aria-label="delete">❌</span></button>
+          </div>
+            <br /> by {post.author} | category: {post.category} <br/>
+          {post.body} 
+          <br /><br /><Link to={`/comment/${post.id}`} className="button button-small">Add a Comment</Link>
+          </div> )) : 'no posts to show'
+        }
+      </div>
+      )
+  }
+}
+
+// mapDispatchToProps () {
+
+// }
+
+// export default connect(mapDispatchToProps)(PostsList);
+const mapStateToProps = (state, props) => ({
+  posts: state.posts,
+});
+
+export default connect(mapStateToProps)(PostsList);
