@@ -1,9 +1,24 @@
 .App {
   text-align: center;
 }
-.button-small {
-  font-size: .8rem;
+.controls {
+  font-size: 1.7rem!important;
   height: 2.8rem;
   line-height: 2.8rem;
-  padding: 0 1.5rem;
+  padding: 0 1rem;
+}
+.button-outline {
+  width: 100%;
+}
+.ToolBar {
+  border-top: 0.5px solid #d1d1d1;
+}
+@media (min-width: 40.0rem) { 
+  .button {
+    width: auto;
+  }
+  select {
+    width: 140px;
+    margin-left: 10px;
+  }
 }
