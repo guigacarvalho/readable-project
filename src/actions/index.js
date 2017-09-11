@@ -9,10 +9,13 @@ export const ADD_COMMENT = 'ADD_COMMENT';
 export const EDIT_POST = 'EDIT_POST';
 export const REMOVE_POST = 'REMOVE_POST';
 
+export const UPDATE_POST_VOTE_SCORE = 'UPDATE_POST_VOTE_SCORE';
+
 export const GET_CATEGORIES = 'GET_CATEGORIES';
+export const GET_POSTS_FROM_CATEGORIES = 'GET_POSTS_FROM_CATEGORIES';
 
 
-export function getPosts (posts) {
+export function getAllPosts (posts) {
     return {
         type: GET_POSTS,
         posts
@@ -22,8 +25,27 @@ export function getPosts (posts) {
 export const fetchPosts = () => dispatch => (
     PostAPI
         .getAll()
-        .then(posts => dispatch(getPosts(posts)))
+        .then(posts => dispatch(getAllPosts(posts)))
     
+);
+
+export function getPostsFromCategories (posts) {
+    return {
+        type: GET_POSTS_FROM_CATEGORIES,
+        posts
+    }
+}
+
+export const fetchPostsFromCategory = (category) => dispatch => (
+    CategoryAPI
+        .getPosts(category)
+        .then(posts => dispatch(getPostsFromCategories(posts)))
+);
+
+export const fetchCategories = () => dispatch => (
+    CategoryAPI
+        .getAll()
+        .then(categories => dispatch(getCategories(categories)))    
 );
 
 export function getCategories (categories) {
@@ -33,13 +55,31 @@ export function getCategories (categories) {
     }
 }
 
-export const fetchCategories = () => dispatch => (
-    CategoryAPI
-        .getAll()
-        .then(categories => dispatch(getCategories(categories)))
-    
+export const voteUp = (postId) => dispatch => (
+    PostAPI
+        .upVote(postId)
+        .then(post => dispatch(upVotePost(post)))    
 );
 
+export function upVotePost (post) {
+    return {
+        type: UPDATE_POST_VOTE_SCORE,
+        post
+    }
+}
+
+export const voteDown = (postId) => dispatch => (
+    PostAPI
+        .downVote(postId)
+        .then(post => dispatch(downVotePost(post)))    
+);
+
+export function downVotePost (post) {
+    return {
+        type: UPDATE_POST_VOTE_SCORE,
+        post
+    }
+}
 
 export function getPost ({postId}) {
     return {
