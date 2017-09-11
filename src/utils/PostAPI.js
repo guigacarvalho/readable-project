@@ -32,11 +32,11 @@ fetch(`${rootUrl}/posts/`, {
  })
     .then(res => res.json())
 
-export const upVote = (postId) =>
+export const upVote = (postId) =>     
 fetch(`${rootUrl}/posts/${postId}`, { 
     headers,
     method: 'POST',
-    body: { option: 'upVote' },
+    body: JSON.stringify({ option: 'upVote' }),
     })
     .then(res => res.json())
         
@@ -44,7 +44,7 @@ export const downVote = (postId) =>
 fetch(`${rootUrl}/posts/${postId}`, { 
     headers,
     method: 'POST',
-    body: { option: 'downVote' },
+    body: JSON.stringify({ option: 'downVote' }),
     })
     .then(res => res.json())
         
