@@ -3,7 +3,9 @@ import * as APIConstants from './API.js';
 const { rootUrl, headers } = APIConstants;
 
 export const getAll = () =>
-fetch(`${rootUrl}/posts`, { headers })
+fetch(`${rootUrl}/posts`, { 
+    headers 
+    })
     .then((res) => res.json())
   
 export const getComments = (postId) =>
@@ -15,21 +17,22 @@ fetch(`${rootUrl}/posts/`, {
     headers,
     method: 'POST',
     body: data,
-})
-.then(res => res.json())
+    })
+    .then(res => res.json())
 
 export const editPost = (postId, data) =>
 fetch(`${rootUrl}/posts/`, { 
     headers,
     method: 'POST',
     body: data,
-})
+    })
     .then(res => res.json())
         
 export const deletePost = (postId) =>
-fetch(`${rootUrl}/posts/`, { 
+fetch(`${rootUrl}/posts/${postId}`, { 
     headers,
- })
+    method: 'DELETE',
+    })
     .then(res => res.json())
 
 export const upVote = (postId) =>     
