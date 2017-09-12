@@ -23,7 +23,9 @@ class App extends Component {
           </div>
           )}/>
         
-        <Route exact path='/create' component={CreatePost} />
+        <Route exact path='/create' render={({history}) => (
+          <CreatePost history={history}/>
+          )}/>
         <Route exact path='/comment/:id' component={LeaveComment} />
         </div>
       </BrowserRouter>

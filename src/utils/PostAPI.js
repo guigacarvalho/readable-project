@@ -16,7 +16,7 @@ export const addPost = (data) =>
 fetch(`${rootUrl}/posts/`, { 
     headers,
     method: 'POST',
-    body: data,
+    body: JSON.stringify(data),
     })
     .then(res => res.json())
 
@@ -28,13 +28,19 @@ fetch(`${rootUrl}/posts/`, {
     })
     .then(res => res.json())
         
+export const getPost = (postId) =>
+fetch(`${rootUrl}/posts/${postId}`, { 
+    headers,
+    method: 'GET',
+    })
+    .then(res => res.json())
+
 export const deletePost = (postId) =>
 fetch(`${rootUrl}/posts/${postId}`, { 
     headers,
     method: 'DELETE',
     })
-    .then(res => res.json())
-
+            
 export const upVote = (postId) =>     
 fetch(`${rootUrl}/posts/${postId}`, { 
     headers,

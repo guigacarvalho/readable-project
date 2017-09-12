@@ -34,7 +34,7 @@ export default function reducer (state = initialState, action) {
         case GET_POST:
             return {
                 ...state,
-                posts: [...state.posts, action.post]
+                posts: [action.post]
             };
 
         case ADD_POST:
@@ -50,9 +50,11 @@ export default function reducer (state = initialState, action) {
             };
 
         case REMOVE_POST:
+            const remainingPosts = state.posts.filter((post) => action.postId !== post.id)
+            
             return {
                 ...state,
-                posts: [...state.posts, action.post]
+                posts: remainingPosts
             };
 
         case GET_CATEGORIES:

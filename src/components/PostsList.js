@@ -6,13 +6,16 @@ import { Link } from 'react-router-dom'
 class PostsList extends React.Component {
   upVote(postId) {
     this.props.dispatch(Actions.voteUp(postId));
-    // this.updatePostsList(this.props);
   }
 
   downVote(postId){
     this.props.dispatch(Actions.voteDown(postId));
-    // this.updatePostsList(this.props);
   }
+
+  deletePost(postId) {
+    this.props.dispatch(Actions.deletePost(postId));
+  }
+
   updatePostsList(props) {
     const category = props.match.params.path;
     if(category) {
@@ -41,7 +44,7 @@ class PostsList extends React.Component {
       <div>
         <h3>= {path ? `posts from ${path}` : 'all posts' } =</h3>
         {
-          Array.isArray(posts) && posts.length > 0 ? posts.map((post, index) => (
+          Array.isArray(posts) && posts.length > 0 ? posts.filter((post) => !post.deleted).map((post, index) => (
           <div key={post.id}>
           <hr/> 
           <h4>{post.title}</h4>
@@ -50,7 +53,7 @@ class PostsList extends React.Component {
             <button className="button button-clear button-small controls"><span role="img" aria-label="upvote" onClick={()=>this.upVote(post.id)}>👍</span></button> |
             <button className="button button-clear button-small controls"><span role="img" aria-label="downvote" onClick={()=>this.downVote(post.id)}>👎</span></button> |
             <button className="button button-clear button-small controls"><span role="img" aria-label="edit">📝</span></button> |
-            <button className="button button-clear button-small controls"><span role="img" aria-label="delete">❌</span></button>
+            <button className="button button-clear button-small controls"><span role="img" aria-label="delete" onClick={()=>this.deletePost(post.id)}>❌</span></button>
           </div>
             <br /> by {post.author} | category: {post.category} <br/>
           {post.body} 
@@ -62,11 +65,6 @@ class PostsList extends React.Component {
   }
 }
 
-// mapDispatchToProps () {
-
-// }
-
-// export default connect(mapDispatchToProps)(PostsList);
 const mapStateToProps = (state, props) => ({
   posts: state.posts,
 });

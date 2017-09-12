@@ -1,4 +1,3 @@
-import uuid from '../utils/uuid';
 import * as PostAPI from '../utils/PostAPI'
 import * as CategoryAPI from '../utils/CategoryAPI'
 
@@ -81,22 +80,30 @@ export function downVotePost (post) {
     }
 }
 
-export function getPost ({postId}) {
+export const retrievePost = (postId) => dispatch => (
+    PostAPI
+        .getPost(postId)
+        .then(post => dispatch(getPost(post)))
+);
+
+export function getPost ({post}) {
     return {
         type: GET_POST,
-        postId,
+        post,
     }
 }
 
-export function addPost ({title, body, category, owner}) {
+
+export const addPost = (post) => dispatch => (
+    PostAPI
+        .addPost(post)
+        .then(post => dispatch(insertPost(post)))    
+);
+
+export function insertPost (post) {
     return {
         type: ADD_POST,
-        id: uuid(),
-        title,
-        timestamp: new Date.now(),
-        owner,
-        body,
-        category
+        post
     }
 }
 
@@ -110,7 +117,12 @@ export function editPost ({id, title, body, category}) {
     }
 }
 
-export function removePost ({postId, comment}) {
+export const deletePost = (postId) => dispatch => {
+    PostAPI.deletePost(postId);
+    dispatch(removePost(postId));
+}
+
+export function removePost (postId) {
     return {
         type: REMOVE_POST,
         postId
