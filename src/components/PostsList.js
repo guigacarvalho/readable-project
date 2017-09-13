@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as Actions from '../actions/'
 import { Link } from 'react-router-dom'
+import PostToolBar from './PostToolBar'
 
 class PostsList extends React.Component {
   state = {
@@ -73,13 +74,7 @@ class PostsList extends React.Component {
           <div key={post.id}>
           <hr/> 
           <h4><Link to={`/post/${post.id}`} className="">{post.title}</Link></h4>
-          <div className="ToolBar">
-            <button className="button button-clear button-small controls"># {post.voteScore}</button> |
-            <button className="button button-clear button-small controls"><span role="img" aria-label="upvote" onClick={()=>this.upVote(post.id)}>👍</span></button> |
-            <button className="button button-clear button-small controls"><span role="img" aria-label="downvote" onClick={()=>this.downVote(post.id)}>👎</span></button> |
-            <button className="button button-clear button-small controls"><span role="img" aria-label="edit" onClick={()=>this.editPost(post.id)}>📝</span></button> |
-            <button className="button button-clear button-small controls"><span role="img" aria-label="delete" onClick={()=>this.deletePost(post.id)}>❌</span></button>
-          </div>
+            <PostToolBar post={post} history={this.props.history} />
             <br />{new Date(post.timestamp).toDateString()} | by {post.author} | category: {post.category} <br/>
           {post.body} 
           <br /><br /><Link to={`/comment/${post.id}`} className="button button-small">Add a Comment</Link>
