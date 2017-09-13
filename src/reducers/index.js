@@ -73,7 +73,7 @@ export default function reducer (state = initialState, action) {
         case GET_COMMENTS:
             return {
                 ...state,
-                comments: [action.comments]
+                comments: action.comments
             };
 
         

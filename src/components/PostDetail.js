@@ -2,6 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as Actions from '../actions/'
 import { Link } from 'react-router-dom'
+import PostToolBar from './PostToolBar'
+import CommentList from './CommentList'
 
 class PostDetail extends React.Component {
   upVote(postId) {
@@ -33,22 +35,17 @@ class PostDetail extends React.Component {
     console.log(posts)
     return (
       <div>
-        <h3>= {path ? `posts from ${path}` : 'all posts' } =</h3>
         {
           Array.isArray(posts) && posts.length > 0 ? posts.map((post, index) => (
           <div key={post.id}>
           <hr/> 
-          <h4>{post.title}</h4>
-          <div className="ToolBar">
-            <button className="button button-clear button-small controls"># {post.voteScore}</button> |
-            <button className="button button-clear button-small controls"><span role="img" aria-label="upvote" onClick={()=>this.upVote(post.id)}>👍</span></button> |
-            <button className="button button-clear button-small controls"><span role="img" aria-label="downvote" onClick={()=>this.downVote(post.id)}>👎</span></button> |
-            <button className="button button-clear button-small controls"><span role="img" aria-label="edit" onClick={()=>this.editPost(post.id)}>📝</span></button> |
-            <button className="button button-clear button-small controls"><span role="img" aria-label="delete" onClick={()=>this.deletePost(post.id)}>❌</span></button>
-          </div>
+          <h3>= {post.title} =</h3>
+            <PostToolBar post={post} history={this.props.history} />
             <br /> by {post.author} | category: {post.category} <br/>
           {post.body} 
-          <br /><br /><Link to={`/comment/${post.id}`} className="button button-small">Add a Comment</Link>
+          <br />
+          <br />
+          <CommentList post={post}/>
           </div> )) : 'no posts to show'
         }
       </div>

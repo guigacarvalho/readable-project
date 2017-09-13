@@ -10,7 +10,7 @@
 .button-outline {
   width: 100%;
 }
-.ToolBar {
+.strong-border-top {
   border-top: 0.5px solid #d1d1d1;
 }
 @media (min-width: 40.0rem) { 
