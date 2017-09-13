@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import * as Actions from '../actions/'
 import uuid from '../utils/uuid'
 
-class CreatePost extends React.Component {
+class PostAdd extends React.Component {
     state = {
         id: uuid(),
         timestamp: Date.now(),
@@ -21,7 +21,6 @@ class CreatePost extends React.Component {
 
     submit = (e) => {
         e.preventDefault();
-        console.info(this.state);
         this.props.dispatch(Actions.addPost(this.state));
         this.props.history.push('/');        
     }
@@ -46,7 +45,9 @@ class CreatePost extends React.Component {
                         : <option disabled>no categories to select from</option>
                     }
                 </select>
-                <input className="button-primary" type="submit" value="Send" />
+                <div>
+                    <button className="button button-small" type="submit">Add Post</button>
+                </div>
             </form>
         )
     }
@@ -56,4 +57,4 @@ const mapStateToProps = (state, props) => ({
     categories: state.categories,
   });
   
-export default connect(mapStateToProps)(CreatePost);
+export default connect(mapStateToProps)(PostAdd);

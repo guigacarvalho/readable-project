@@ -1,10 +1,13 @@
 import * as PostAPI from '../utils/PostAPI'
 import * as CategoryAPI from '../utils/CategoryAPI'
+import * as CommentAPI from '../utils/CommentAPI'
 
 export const ADD_POST = 'ADD_POST';
 export const GET_POST = 'GET_POST';
 export const GET_POSTS = 'GET_POSTS';
+export const HANDLE_SORTING = 'HANDLE_SORTING';
 export const ADD_COMMENT = 'ADD_COMMENT';
+export const EDITING_POST = 'EDITING_POST';
 export const EDIT_POST = 'EDIT_POST';
 export const REMOVE_POST = 'REMOVE_POST';
 
@@ -13,6 +16,7 @@ export const UPDATE_POST_VOTE_SCORE = 'UPDATE_POST_VOTE_SCORE';
 export const GET_CATEGORIES = 'GET_CATEGORIES';
 export const GET_POSTS_FROM_CATEGORIES = 'GET_POSTS_FROM_CATEGORIES';
 
+export const GET_COMMENTS = 'GET_COMMENTS';
 
 export function getAllPosts (posts) {
     return {
@@ -86,9 +90,35 @@ export const retrievePost = (postId) => dispatch => (
         .then(post => dispatch(getPost(post)))
 );
 
-export function getPost ({post}) {
+export function getPost (post) {
     return {
         type: GET_POST,
+        post,
+    }
+}
+
+export const retrieveComments = (postId) => dispatch => (
+    CommentAPI
+        .getComments(postId)
+        .then(comments => dispatch(getComments(comments)))
+);
+
+export function getComments (comments) {
+    return {
+        type: GET_COMMENTS,
+        comments,
+    }
+}
+
+export const modifyPost = (postId) => dispatch => (
+    PostAPI
+        .getPost(postId)
+        .then(post => dispatch(editingPost(post)))
+);
+
+export function editingPost (post) {
+    return {
+        type: EDITING_POST,
         post,
     }
 }
@@ -107,7 +137,15 @@ export function insertPost (post) {
     }
 }
 
-export function editPost ({id, title, body, category}) {
+
+export const editPost = (postId) => dispatch => (
+    PostAPI
+        .editPost(postId)
+        .then(post => dispatch(updatePost(post)))
+);
+
+
+export function updatePost ({id, title, body, category}) {
     return {
         type: EDIT_POST,
         id,
@@ -126,6 +164,13 @@ export function removePost (postId) {
     return {
         type: REMOVE_POST,
         postId
+    }
+}
+
+export function sortPosts (sort) {
+    return {
+        type: HANDLE_SORTING,
+        sort
     }
 }
 

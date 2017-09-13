@@ -2,7 +2,7 @@ import React from 'react'
 // import { connect } from 'react-redux'
 // import * as Actions from '../actions/'
 
-class LeaveComment extends React.Component {
+class CommentAdd extends React.Component {
     render() {
         return (
             <blockquote>Leave Comment form goes.</blockquote>
@@ -10,4 +10,4 @@ class LeaveComment extends React.Component {
     }
 }
 
-export default LeaveComment
+export default CommentAdd

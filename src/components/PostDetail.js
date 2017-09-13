@@ -3,11 +3,7 @@ import { connect } from 'react-redux'
 import * as Actions from '../actions/'
 import { Link } from 'react-router-dom'
 
-class PostsList extends React.Component {
-  state = {
-    sorting: 'sortTimestampDesc'
-  }
-
+class PostDetail extends React.Component {
   upVote(postId) {
     this.props.dispatch(Actions.voteUp(postId));
   }
@@ -21,58 +17,28 @@ class PostsList extends React.Component {
   }
 
   editPost(postId) {
+    this.props.dispatch(Actions.editPost(postId));
     this.props.history.push(`/editPost/${postId}`);  
   }
-  updatePostsList(props) {
-    const category = props.match.params.path;
-    if(category) {
-      // Get posts from all Categories
-      this.props.dispatch(Actions.fetchPostsFromCategory(category));
-    } else {
-      // Get posts from all Categories
-      this.props.dispatch(Actions.fetchPosts());
-    }
-  }
-  handleSorting(e) {
-    // debugger;
-    const sorting = e.target.value;
-    this.setState({sorting});
-    this.props.dispatch(Actions.sortPosts(e.target.value));
-  }
   componentDidMount() {
-    this.updatePostsList(this.props)
-  }
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.location !== this.props.location) {
-      this.updatePostsList(nextProps)
-    }
+    const {id} = this.props.match.params
+    this.props.dispatch(Actions.retrievePost(id));
+    this.props.dispatch(Actions.retrieveComments(id));
   }
 
   
   render(){
     const {posts} = this.props
     const {path} = this.props.match ? this.props.match.params : {path: null};
+    console.log(posts)
     return (
       <div>
         <h3>= {path ? `posts from ${path}` : 'all posts' } =</h3>
         {
-              Array.isArray(posts) ? (
-              <div>
-                Sort by:
-                <select onChange={(e)=>this.handleSorting(e)} value={this.state.sorting}>
-                  <option value="sortTimestampDesc">Most Recent</option>
-                  <option value="sortTimestampAsc">Least Recent</option>
-                  <option value="sortVoteScoreAsc">Most Popular</option>
-                  <option value="sortVoteScoreDesc">Least Popular</option>
-                </select>
-              </div>
-              ) : ''
-          }
-        {
-          Array.isArray(posts) && posts.length > 0 ? posts.filter((post) => !post.deleted).map((post, index) => (
+          Array.isArray(posts) && posts.length > 0 ? posts.map((post, index) => (
           <div key={post.id}>
           <hr/> 
-          <h4><Link to={`/post/${post.id}`} className="">{post.title}</Link></h4>
+          <h4>{post.title}</h4>
           <div className="ToolBar">
             <button className="button button-clear button-small controls"># {post.voteScore}</button> |
             <button className="button button-clear button-small controls"><span role="img" aria-label="upvote" onClick={()=>this.upVote(post.id)}>👍</span></button> |
@@ -80,7 +46,7 @@ class PostsList extends React.Component {
             <button className="button button-clear button-small controls"><span role="img" aria-label="edit" onClick={()=>this.editPost(post.id)}>📝</span></button> |
             <button className="button button-clear button-small controls"><span role="img" aria-label="delete" onClick={()=>this.deletePost(post.id)}>❌</span></button>
           </div>
-            <br />{new Date(post.timestamp).toDateString()} | by {post.author} | category: {post.category} <br/>
+            <br /> by {post.author} | category: {post.category} <br/>
           {post.body} 
           <br /><br /><Link to={`/comment/${post.id}`} className="button button-small">Add a Comment</Link>
           </div> )) : 'no posts to show'
@@ -92,6 +58,7 @@ class PostsList extends React.Component {
 
 const mapStateToProps = (state, props) => ({
   posts: state.posts,
+  comments: state.comments,
 });
 
-export default connect(mapStateToProps)(PostsList);
+export default connect(mapStateToProps)(PostDetail);

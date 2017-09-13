@@ -21,10 +21,10 @@ fetch(`${rootUrl}/posts/`, {
     .then(res => res.json())
 
 export const editPost = (postId, data) =>
-fetch(`${rootUrl}/posts/`, { 
+fetch(`${rootUrl}/posts/${postId}`, { 
     headers,
-    method: 'POST',
-    body: data,
+    method: 'PUT',
+    body: JSON.stringify(data),
     })
     .then(res => res.json())
         

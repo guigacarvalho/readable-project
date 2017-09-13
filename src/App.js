@@ -3,9 +3,11 @@ import '../node_modules/milligram/dist/milligram.css';
 import './App.css';
 import { BrowserRouter, Route} from 'react-router-dom'
 import PostsList from './components/PostsList'
-import CreatePost from './components/CreatePost'
-import AddPostButton from './components/AddPostButton'
-import LeaveComment from './components/LeaveComment'
+import PostAdd from './components/PostAdd'
+import PostEdit from './components/PostEdit'
+import PostDetail from './components/PostDetail'
+import ButtonAddPost from './components/ButtonAddPost'
+import CommentAdd from './components/CommentAdd'
 import CategoriesList from './components/CategoriesList'
 
 class App extends Component {
@@ -14,19 +16,28 @@ class App extends Component {
       <BrowserRouter>
         <div className="App container">
           <h1>= readable =</h1>
-        <Route path='/' render={({history, location}) => (
-          <div>
-            <CategoriesList/>
-            <AddPostButton/>
-            <Route exact path='/' component={PostsList} />
-            <Route exact path='/category/:path' component={PostsList} />
-          </div>
+          {/* Homepage */}
+          <Route path='/' render={({history}) => (
+            <div>
+              <CategoriesList/>
+              <ButtonAddPost/>
+              <Route exact path='/' component={PostsList} history={history}/>
+              <Route exact path='/category/:path' component={PostsList} />
+            </div>
           )}/>
         
-        <Route exact path='/create' render={({history}) => (
-          <CreatePost history={history}/>
+          {/* Post Routes */}
+          <Route exact path='/post/:id' component={PostDetail}/>
+          <Route exact path='/create' render={({history}) => (
+            <PostAdd history={history}/>
           )}/>
-        <Route exact path='/comment/:id' component={LeaveComment} />
+          <Route exact path='/editPost/:id' render={({history, match}) => (
+            <PostEdit history={history} match={match}/>
+          )}/>
+          
+          {/* Comments Routes */}
+          <Route exact path='/comment/:id' component={CommentAdd} />
+          {/* <Route exact path='/comment/:id' component={CommentAdd} /> */}
         </div>
       </BrowserRouter>
     );

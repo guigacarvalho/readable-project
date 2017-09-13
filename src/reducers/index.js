@@ -1,9 +1,11 @@
 import { 
     ADD_POST, 
-    EDIT_POST, 
+    EDIT_POST,
+    EDITING_POST, 
     REMOVE_POST, 
     GET_POSTS,
     GET_POST,
+    HANDLE_SORTING,
     GET_COMMENTS,
     UPDATE_POST_VOTE_SCORE,
     GET_POSTS_FROM_CATEGORIES,
@@ -12,10 +14,41 @@ import {
 const initialState = {
     posts: {},
     categories: [],
+    editingPost:{},
+    editingComment: {},
+    comments: []
 };
 
 export default function reducer (state = initialState, action) {
     switch (action.type) {
+        case HANDLE_SORTING:
+        debugger;
+        state.posts.sort()
+            switch (action.sort) {
+                case "sortTimestampDesc":
+                    return {
+                        ...state,
+                        posts: [...state.posts]
+                    }
+                case "sortTimestampAsc":
+                    return {
+                        ...state,
+                        posts: [...state.posts]
+                    }
+                case "sortVoteScoreAsc":
+                    return {
+                        ...state,
+                        posts: [...state.posts]
+                    }
+                case "sortVoteScoreDesc":
+                    return {
+                        ...state,
+                        posts: [...state.posts]
+                    }
+                default:
+                    return state;          
+            }
+
         case GET_POSTS:
             return {
                 ...state,
@@ -27,7 +60,7 @@ export default function reducer (state = initialState, action) {
             let {posts} = state
             posts[postIndex]['voteScore'] = action.post.voteScore
             return {...state, 
-                ['posts']:
+                posts:
                     [...posts]
             };
 
@@ -37,18 +70,31 @@ export default function reducer (state = initialState, action) {
                 posts: [action.post]
             };
 
+        case GET_COMMENTS:
+            return {
+                ...state,
+                comments: [action.comments]
+            };
+
+        
         case ADD_POST:
             return {
                 ...state,
                 posts: [...state.posts, action.post]
             };
+            
+        case EDITING_POST:
+            return {
+                ...state,
+                editingPost: action.post
+            };
 
         case EDIT_POST:
             return {
                 ...state,
-                posts: [...state.posts, action.post]
+                posts: [action.post]
             };
-
+            
         case REMOVE_POST:
             const remainingPosts = state.posts.filter((post) => action.postId !== post.id)
             
