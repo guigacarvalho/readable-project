@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import * as Actions from '../actions/'
-import { Link } from 'react-router-dom'
 import PostToolBar from './PostToolBar'
 import CommentList from './CommentList'
 
@@ -31,8 +30,6 @@ class PostDetail extends React.Component {
   
   render(){
     const {posts} = this.props
-    const {path} = this.props.match ? this.props.match.params : {path: null};
-    console.log(posts)
     return (
       <div>
         {

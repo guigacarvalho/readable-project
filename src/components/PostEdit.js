@@ -7,7 +7,8 @@ class PostEdit extends React.Component {
         title: '',
         body: '',
         author: '',
-        category: ''
+        category: '',
+        deleted: false,
     }
 
     componentWillMount() {
@@ -28,8 +29,6 @@ class PostEdit extends React.Component {
 
     submit = (e) => {
         e.preventDefault();
-        debugger;
-        console.log(this.state);
         this.props.dispatch(Actions.editPost(this.state));
         this.props.history.push('/');
     }
@@ -67,9 +66,5 @@ const mapStateToProps = (state, props) => ({
     categories: state.categories,
     editingPost: state.editingPost
 });
-
-//TODO: Map editing props to use them in the reducer EDIT_POSTS
-// const mapDispatchToProps = () => {
-// }
   
 export default connect(mapStateToProps)(PostEdit);

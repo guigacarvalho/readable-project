@@ -7,7 +7,6 @@ import {
     GET_POST,
     HANDLE_SORTING,
     GET_COMMENTS,
-    UPDATE_POST_VOTE_SCORE,
     GET_POSTS_FROM_CATEGORIES,
     GET_CATEGORIES } from '../actions'
 
@@ -55,15 +54,6 @@ export default function reducer (state = initialState, action) {
                 posts: action.posts
             };
 
-        case UPDATE_POST_VOTE_SCORE:
-            const postIndex = state.posts.findIndex((post) => action.post.id === post.id)
-            let {posts} = state
-            posts[postIndex]['voteScore'] = action.post.voteScore
-            return {...state, 
-                posts:
-                    [...posts]
-            };
-
         case GET_POST:
             return {
                 ...state,
@@ -90,9 +80,12 @@ export default function reducer (state = initialState, action) {
             };
 
         case EDIT_POST:
-            return {
-                ...state,
-                posts: [action.post]
+            const postIndex = state.posts.findIndex((post) => action.post.id === post.id)
+            const {posts} = state
+            posts[postIndex] = action.post
+            return {...state, 
+                posts:
+                    [...posts]
             };
             
         case REMOVE_POST:

@@ -11,8 +11,6 @@ export const EDITING_POST = 'EDITING_POST';
 export const EDIT_POST = 'EDIT_POST';
 export const REMOVE_POST = 'REMOVE_POST';
 
-export const UPDATE_POST_VOTE_SCORE = 'UPDATE_POST_VOTE_SCORE';
-
 export const GET_CATEGORIES = 'GET_CATEGORIES';
 export const GET_POSTS_FROM_CATEGORIES = 'GET_POSTS_FROM_CATEGORIES';
 
@@ -66,7 +64,7 @@ export const voteUp = (postId) => dispatch => (
 
 export function upVotePost (post) {
     return {
-        type: UPDATE_POST_VOTE_SCORE,
+        type: EDIT_POST,
         post
     }
 }
@@ -79,7 +77,7 @@ export const voteDown = (postId) => dispatch => (
 
 export function downVotePost (post) {
     return {
-        type: UPDATE_POST_VOTE_SCORE,
+        type: EDIT_POST,
         post
     }
 }
@@ -137,7 +135,6 @@ export function insertPost (post) {
     }
 }
 
-
 export const editPost = (postId) => dispatch => (
     PostAPI
         .editPost(postId)
@@ -145,13 +142,10 @@ export const editPost = (postId) => dispatch => (
 );
 
 
-export function updatePost ({id, title, body, category}) {
+export function updatePost (post) {
     return {
         type: EDIT_POST,
-        id,
-        title,
-        body,
-        category
+        post
     }
 }
 
