@@ -6,7 +6,7 @@ import PostToolBar from './PostToolBar'
 
 class PostsList extends React.Component {
   state = {
-    sorting: 'sortTimestampDesc'
+    sorting: '-timestamp'
   }
 
   upVote(postId) {
@@ -40,12 +40,14 @@ class PostsList extends React.Component {
     this.props.dispatch(Actions.sortPosts(sorting));
   }
   componentDidMount() {
-    this.updatePostsList(this.props)
+    this.updatePostsList(this.props);
+    
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.location !== this.props.location) {
       this.updatePostsList(nextProps)
     }
+    this.props.dispatch(Actions.sortPosts(this.state.sorting));
   }
 
   
