@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 // import * as Actions from '../actions/'
 // import PostToolBar from './PostToolBar'
+import moment from 'moment'
 
 class CommentList extends React.Component {
   state = {
@@ -21,7 +22,7 @@ class CommentList extends React.Component {
           Array.isArray(filteredComents) && filteredComents.length > 0 ? filteredComents.filter((comment) => !comment.deleted).map((comment, index) => (
           <pre key={comment.id}>
             {/* <PostToolBar post={post} history={this.props.history} /> */}
-            {new Date(comment.timestamp).toDateString()} | by {comment.author}<br/>
+            <b>{moment(comment.timestamp).fromNow()} | by {comment.author}</b><br/>
           {comment.body} 
           <br />
           </pre> )) : 'no comments to show'
