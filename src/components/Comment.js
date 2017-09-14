@@ -5,11 +5,11 @@ import React from 'react'
 import moment from 'moment'
 
 
-const Comment = ({id, author, category, body, title, timestamp}) => ( 
-  <pre key={id}>
-    {/* <PostToolBar post={post} history={this.props.history} /> */}
-    <b>{moment(timestamp).fromNow()} | by {author}</b><br/>
-    {body} 
+const Comment = ({content}) => ( 
+  <pre>
+    {/* <PostToolBar post={post} history={history} /> */}
+    <b>{moment(content.timestamp).fromNow()} | by {content.author}</b><br/>
+    {content.body} 
     <br />
   </pre>
 );

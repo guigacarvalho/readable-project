@@ -13,7 +13,7 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        <div className="App container align-center">
+        <div className="App container align-center spacing-top">
           <h1>= readable =</h1>
           {/* Homepage */}
           <Route path='/' render={({history}) => (

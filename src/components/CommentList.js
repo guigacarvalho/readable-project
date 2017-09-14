@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import AddButton from './AddButton'
 import Comment from './Comment'
 // import * as Actions from '../actions/'
 // import PostToolBar from './PostToolBar'
@@ -21,12 +20,11 @@ class CommentList extends React.Component {
         {
           Array.isArray(filteredComents) && filteredComents.length > 0 ? 
             filteredComents.filter((comment) => !comment.deleted).map((comment, index) => (
-              <Comment content={comment}/>
-            )) 
+              <Comment content={comment} key={index}/>
+            ))
             : 'no comments to show'
         }
         <br />
-        <AddButton url={`/post/${this.props.post.id}/comment`} type="comment"/>
       </div>
       )
   }
