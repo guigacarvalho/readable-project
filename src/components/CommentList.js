@@ -1,9 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import AddButton from './AddButton'
+import moment from 'moment'
 // import * as Actions from '../actions/'
 // import PostToolBar from './PostToolBar'
-import moment from 'moment'
 
 class CommentList extends React.Component {
   state = {
@@ -27,7 +28,8 @@ class CommentList extends React.Component {
           <br />
           </pre> )) : 'no comments to show'
         }
-        <br /><Link to={`/comment/${this.props.post.id}`} className="button button-small">Add a Comment</Link>
+        <br />
+        <AddButton url={`/comment/${this.props.post.id}`} type="comment"/>
       </div>
       )
   }

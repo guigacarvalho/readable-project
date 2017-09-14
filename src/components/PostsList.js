@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import * as Actions from '../actions/'
 import { Link } from 'react-router-dom'
 import PostToolBar from './PostToolBar'
+import AddButton from './AddButton'
 
 class PostsList extends React.Component {
   state = {
@@ -78,7 +79,7 @@ class PostsList extends React.Component {
             <PostToolBar post={post} history={this.props.history} />
             <br />{new Date(post.timestamp).toDateString()} | by {post.author} | category: {post.category} <br/>
           {post.body} 
-          <br /><br /><Link to={`/comment/${post.id}`} className="button button-small">Add a Comment</Link>
+          <br /><br /><AddButton url={`/comment/${post.id}`} type="comment" />
           </div> )) : 'no posts to show'
         }
       </div>

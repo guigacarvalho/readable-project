@@ -6,7 +6,7 @@ import PostsList from './components/PostsList'
 import PostAdd from './components/PostAdd'
 import PostEdit from './components/PostEdit'
 import PostDetail from './components/PostDetail'
-import ButtonAddPost from './components/ButtonAddPost'
+import AddButton from './components/AddButton'
 import CommentAdd from './components/CommentAdd'
 import CategoriesList from './components/CategoriesList'
 
@@ -20,7 +20,7 @@ class App extends Component {
           <Route path='/' render={({history}) => (
             <div>
               <CategoriesList/>
-              <ButtonAddPost/>
+              <AddButton type="post" url="/create"/>
               <Route exact path='/' component={PostsList} history={history}/>
               <Route exact path='/category/:path' component={PostsList} />
             </div>
