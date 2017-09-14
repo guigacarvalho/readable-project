@@ -35,8 +35,7 @@ class PostDetail extends React.Component {
         {
           Array.isArray(posts) && posts.length > 0 ? posts.map((post, index) => (
           <div key={post.id}>
-          <hr/> 
-          <h3>= {post.title} =</h3>
+          <h3 className="spacing-top border-bottom spacing-bottom">= {post.title} =</h3>
             <PostToolBar post={post} history={this.props.history} />
             <br /> by {post.author} | category: {post.category} <br/>
           {post.body} 

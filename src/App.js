@@ -6,21 +6,19 @@ import PostsList from './components/PostsList'
 import PostAdd from './components/PostAdd'
 import PostEdit from './components/PostEdit'
 import PostDetail from './components/PostDetail'
-import AddButton from './components/AddButton'
 import CommentAdd from './components/CommentAdd'
-import CategoriesList from './components/CategoriesList'
+import AppMenu from './components/AppMenu'
 
 class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        <div className="App container">
+        <div className="App container align-center">
           <h1>= readable =</h1>
           {/* Homepage */}
           <Route path='/' render={({history}) => (
             <div>
-              <CategoriesList/>
-              <AddButton type="post" url="/create"/>
+              <AppMenu/>
               <Route exact path='/' component={PostsList} history={history}/>
               <Route exact path='/category/:path' component={PostsList} />
             </div>
@@ -36,7 +34,7 @@ class App extends Component {
           )}/>
           
           {/* Comments Routes */}
-          <Route exact path='/comment/:id' component={CommentAdd} />
+          <Route exact path='/post/:id/comment' component={CommentAdd} />
           {/* <Route exact path='/comment/:id' component={CommentAdd} /> */}
         </div>
       </BrowserRouter>

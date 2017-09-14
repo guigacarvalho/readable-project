@@ -1,5 +1,12 @@
-.App {
-  text-align: center;
+.App-menu::before {
+    content: "Menu";
+    width: 100%;
+    height: 30px;  
+  }
+@media(min-width: 40.0rem) { 
+  .App-menu::before {
+    display: none;
+  }
 }
 .controls {
   font-size: 1.7rem!important;
@@ -7,12 +14,9 @@
   line-height: 2.8rem;
   padding: 0 1rem;
 }
-.button-outline {
+/* .button-outline {
   width: 100%;
-}
-.strong-border-top {
-  border-top: 0.5px solid #d1d1d1;
-}
+} */
 @media (min-width: 40.0rem) { 
   .button {
     width: auto;
@@ -21,4 +25,27 @@
     width: 140px;
     margin-left: 10px;
   }
+}
+
+/* Utilities */
+.spacing-top {
+  padding-top: 15px;
+}
+.spacing-bottom {
+  padding-bottom: 15px;
+}
+.border-top {
+  border-top: 0.1rem solid #f4f5f6;
+}
+.border-bottom {
+  border-bottom: 0.1rem solid #f4f5f6;
+}
+.align-center {
+  text-align: center;
+}
+.align-right {
+  text-align: right;
+}
+.align-left {
+  text-align: left;
 }

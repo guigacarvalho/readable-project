@@ -23,7 +23,7 @@ class PostToolBar extends React.Component {
     const {post} = this.props
     const [updatedPost] = this.props.posts.filter((postFromState)=> postFromState.id === post.id) 
     return (
-      <div className="strong-border-top">
+      <div>
         <button className="button button-clear button-small controls"># {updatedPost.voteScore}</button> |
         <button className="button button-clear button-small controls"><span role="img" aria-label="upvote" onClick={()=>this.upVote(updatedPost.id)}>👍</span></button> |
         <button className="button button-clear button-small controls"><span role="img" aria-label="downvote" onClick={()=>this.downVote(updatedPost.id)}>👎</span></button> |

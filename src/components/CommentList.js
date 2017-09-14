@@ -1,8 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
 import AddButton from './AddButton'
-import moment from 'moment'
+import Comment from './Comment'
 // import * as Actions from '../actions/'
 // import PostToolBar from './PostToolBar'
 
@@ -20,16 +19,14 @@ class CommentList extends React.Component {
           <br />
           <label>Comments</label>
         {
-          Array.isArray(filteredComents) && filteredComents.length > 0 ? filteredComents.filter((comment) => !comment.deleted).map((comment, index) => (
-          <pre key={comment.id}>
-            {/* <PostToolBar post={post} history={this.props.history} /> */}
-            <b>{moment(comment.timestamp).fromNow()} | by {comment.author}</b><br/>
-          {comment.body} 
-          <br />
-          </pre> )) : 'no comments to show'
+          Array.isArray(filteredComents) && filteredComents.length > 0 ? 
+            filteredComents.filter((comment) => !comment.deleted).map((comment, index) => (
+              <Comment content={comment}/>
+            )) 
+            : 'no comments to show'
         }
         <br />
-        <AddButton url={`/comment/${this.props.post.id}`} type="comment"/>
+        <AddButton url={`/post/${this.props.post.id}/comment`} type="comment"/>
       </div>
       )
   }

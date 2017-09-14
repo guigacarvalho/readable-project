@@ -3,9 +3,7 @@ import {NavLink} from 'react-router-dom'
 
 const AddButton = ({type, url}) => ( 
     <center>
-        <div className="row">
-            <NavLink to={url} className="button button-outline column column-60">Add a {type}</NavLink>
-        </div>
+            <NavLink to={url} className="button button-outline column">Add a {type}</NavLink>
     </center>
 );
 
