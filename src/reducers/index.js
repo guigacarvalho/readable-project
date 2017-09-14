@@ -1,3 +1,5 @@
+import sortBy from 'sort-by'
+
 import { 
     ADD_POST, 
     EDIT_POST,
@@ -21,32 +23,11 @@ const initialState = {
 export default function reducer (state = initialState, action) {
     switch (action.type) {
         case HANDLE_SORTING:
-        debugger;
-        state.posts.sort()
-            switch (action.sort) {
-                case "sortTimestampDesc":
-                    return {
-                        ...state,
-                        posts: [...state.posts]
-                    }
-                case "sortTimestampAsc":
-                    return {
-                        ...state,
-                        posts: [...state.posts]
-                    }
-                case "sortVoteScoreAsc":
-                    return {
-                        ...state,
-                        posts: [...state.posts]
-                    }
-                case "sortVoteScoreDesc":
-                    return {
-                        ...state,
-                        posts: [...state.posts]
-                    }
-                default:
-                    return state;          
-            }
+        return {
+            ...state,
+            posts: state.posts.sort(sortBy(action.sorting))
+        }
+        
 
         case GET_POSTS:
             return {

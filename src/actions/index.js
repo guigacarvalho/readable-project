@@ -161,10 +161,10 @@ export function removePost (postId) {
     }
 }
 
-export function sortPosts (sort) {
+export function sortPosts (sorting) {
     return {
         type: HANDLE_SORTING,
-        sort
+        sorting
     }
 }
 

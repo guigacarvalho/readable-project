@@ -35,10 +35,9 @@ class PostsList extends React.Component {
     }
   }
   handleSorting(e) {
-    // debugger;
     const sorting = e.target.value;
     this.setState({sorting});
-    this.props.dispatch(Actions.sortPosts(e.target.value));
+    this.props.dispatch(Actions.sortPosts(sorting));
   }
   componentDidMount() {
     this.updatePostsList(this.props)
@@ -61,10 +60,10 @@ class PostsList extends React.Component {
               <div>
                 Sort by:
                 <select onChange={(e)=>this.handleSorting(e)} value={this.state.sorting}>
-                  <option value="sortTimestampDesc">Most Recent</option>
-                  <option value="sortTimestampAsc">Least Recent</option>
-                  <option value="sortVoteScoreAsc">Most Popular</option>
-                  <option value="sortVoteScoreDesc">Least Popular</option>
+                  <option value="-timestamp">Most Recent</option>
+                  <option value="timestamp">Least Recent</option>
+                  <option value="-voteScore">Most Popular</option>
+                  <option value="voteScore">Least Popular</option>
                 </select>
               </div>
               ) : ''

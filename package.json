@@ -13,7 +13,8 @@
     "react-thunk": "^1.0.0",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
-    "run-p": "^0.0.0"
+    "run-p": "^0.0.0",
+    "sort-by": "^1.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
