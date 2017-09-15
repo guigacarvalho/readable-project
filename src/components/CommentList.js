@@ -1,8 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Comment from './Comment'
-// import * as Actions from '../actions/'
-// import PostToolBar from './PostToolBar'
 
 class CommentList extends React.Component {
   state = {

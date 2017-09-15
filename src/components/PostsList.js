@@ -26,7 +26,7 @@ class PostsList extends React.Component {
   updatePostsList(props) {
     const category = props.match.params.path;
     if(category) {
-      // Get posts from all Categories
+      // Get posts from specific Category
       this.props.dispatch(Actions.fetchPostsFromCategory(category));
     } else {
       // Get posts from all Categories
