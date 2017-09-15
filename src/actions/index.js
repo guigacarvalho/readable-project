@@ -6,7 +6,6 @@ export const ADD_POST = 'ADD_POST';
 export const GET_POST = 'GET_POST';
 export const GET_POSTS = 'GET_POSTS';
 export const HANDLE_SORTING = 'HANDLE_SORTING';
-export const ADD_COMMENT = 'ADD_COMMENT';
 export const EDITING_POST = 'EDITING_POST';
 export const EDIT_POST = 'EDIT_POST';
 export const REMOVE_POST = 'REMOVE_POST';
@@ -14,6 +13,7 @@ export const REMOVE_POST = 'REMOVE_POST';
 export const GET_CATEGORIES = 'GET_CATEGORIES';
 export const GET_POSTS_FROM_CATEGORIES = 'GET_POSTS_FROM_CATEGORIES';
 
+export const ADD_COMMENT = 'ADD_COMMENT';
 export const GET_COMMENTS = 'GET_COMMENTS';
 
 export function getAllPosts (posts) {
@@ -168,10 +168,18 @@ export function sortPosts (sorting) {
     }
 }
 
-export function addComment ({postId, comment}) {
+
+export const addComment = (comment) => dispatch => (
+    CommentAPI
+        .addComment(comment)
+        .then(comment => dispatch(insertComment(comment)))    
+);
+
+
+export function insertComment (comment) {
+    debugger;
     return {
         type: ADD_COMMENT,
-        postId,
         comment
     }
 }

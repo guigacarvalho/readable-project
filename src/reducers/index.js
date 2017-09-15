@@ -8,6 +8,7 @@ import {
     GET_POSTS,
     GET_POST,
     HANDLE_SORTING,
+    ADD_COMMENT,
     GET_COMMENTS,
     GET_POSTS_FROM_CATEGORIES,
     GET_CATEGORIES } from '../actions'
@@ -23,10 +24,10 @@ const initialState = {
 export default function reducer (state = initialState, action) {
     switch (action.type) {
         case HANDLE_SORTING:
-        return {
-            ...state,
-            posts: state.posts.sort(sortBy(action.sorting))
-        }
+            return {
+                ...state,
+                posts: state.posts.sort(sortBy(action.sorting))
+            }
         
 
         case GET_POSTS:
@@ -89,6 +90,12 @@ export default function reducer (state = initialState, action) {
                 posts: action.posts
             };
 
+        case ADD_COMMENT:
+            return {
+                ...state,
+                comments: [...state.comments, action.comment]
+            };
+            
         default:
             return state;
     }

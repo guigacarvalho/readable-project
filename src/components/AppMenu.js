@@ -6,7 +6,7 @@ import AddButton from './AddButton'
 
 class AppMenu extends React.Component {
     state = {
-        collapsed: false,
+        collapsed: true,
     }
     toggleMenu = () => {
         this.setState({collapsed: !this.state.collapsed})

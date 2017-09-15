@@ -8,8 +8,12 @@ class CommentAdd extends React.Component {
     state = {
         id: uuid(),
         timestamp: Date.now(),
+        body: '',
+        author: '',
+        parentId: '',
     }
-    
+
+
     handleInputChange = (event) => {
         const target = event.target;
         const value = target.value;
@@ -17,18 +21,27 @@ class CommentAdd extends React.Component {
         this.setState({
           [name]: value
         });
-    
     }
+    
+    componentWillMount() {
+        const postId = this.props.match.params.id;
+        this.props.dispatch(Actions.modifyPost(postId)).then(() =>
+            this.setState({parentId: this.props.editingPost.id})
+        );
+    }
+
     submit = (e) => {
         e.preventDefault();
-        this.props.dispatch(Actions.addPost(this.state));
-        this.props.history.push('/');        
+        this.props.dispatch(Actions.addComment(this.state));
+        this.props.history.push('/post/'+this.state.parentId);        
     }
     
     render() {
         return (
             <form onSubmit={this.submit}>
                 <h3 className="spacing-top border-bottom spacing-bottom">Adding a Comment</h3>
+                <small>"{this.props.editingPost.title}"</small>
+                <hr/>
                 <label>Comment</label>
                 <textarea onChange={this.handleInputChange} placeholder="This is my awesome comment! Behold my knowledge and wit." required name="body"></textarea>
                 <label>Name</label>
@@ -40,5 +53,9 @@ class CommentAdd extends React.Component {
         )
     }
 }
-
-export default connect()(CommentAdd);
+const mapStateToProps = (state, props) => ({
+    categories: state.categories,
+    editingPost: state.editingPost
+});
+  
+export default connect(mapStateToProps)(CommentAdd);
