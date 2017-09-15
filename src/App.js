@@ -34,8 +34,9 @@ class App extends Component {
           )}/>
           
           {/* Comments Routes */}
-          <Route exact path='/post/:id/comment' component={CommentAdd} />
-          {/* <Route exact path='/comment/:id' component={CommentAdd} /> */}
+          <Route exact path='/post/:id/comment' render={({history, match}) => (
+            <CommentAdd history={history} match={match}/>
+          )}/>
         </div>
       </BrowserRouter>
     );
