@@ -28,7 +28,7 @@ class CommentAdd extends React.Component {
     render() {
         return (
             <form onSubmit={this.submit}>
-                <h3 className="spacing-top border-bottom spacing-bottom">= Adding a Comment =</h3>
+                <h3 className="spacing-top border-bottom spacing-bottom">Adding a Comment</h3>
                 <label>Comment</label>
                 <textarea onChange={this.handleInputChange} placeholder="This is my awesome comment! Behold my knowledge and wit." required name="body"></textarea>
                 <label>Name</label>

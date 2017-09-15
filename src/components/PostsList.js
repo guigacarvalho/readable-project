@@ -55,7 +55,7 @@ class PostsList extends React.Component {
     const {path} = this.props.match ? this.props.match.params : {path: null};
     return (
       <div>
-        <h3 className="spacing-top border-bottom spacing-bottom">= {path ? `posts from ${path}` : 'all posts' } =</h3>
+        <h3 className="spacing-top border-bottom spacing-bottom">{path ? `posts from ${path}` : 'all posts' }</h3>
         {
               Array.isArray(posts) ? (
               <div>

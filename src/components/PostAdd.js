@@ -29,7 +29,7 @@ class PostAdd extends React.Component {
         const categories = this.props.categories
         return (
             <form onSubmit={this.submit}>
-                <h3 className="spacing-top border-bottom spacing-bottom">= Adding a Post =</h3>
+                <h3 className="spacing-top border-bottom spacing-bottom">Adding a Post</h3>
                 <label>Title</label>
                 <input onChange={this.handleInputChange} type="text" placeholder="It's 1 am and creativity is running out" required name="title"/>
                 <label>Blog Post</label>
