@@ -21,8 +21,8 @@ class AppMenu extends React.Component {
         const categories = this.props.categories
         return (
             <div className="border-top border-bottom spacing-top  spacing-bottom">
-                <div onClick={this.toggleMenu} className={this.menuState() + ' menu-icon'}></div>    
-                <div className={this.menuState() + ' menu row  spacing-top  spacing-bottom'}>
+                <div onClick={this.toggleMenu} className={`${this.menuState()} menu-icon`}></div>    
+                <div className={`${this.menuState()} menu row  spacing-top  spacing-bottom`}>
                     <NavLink to="/" className="button button-small button-clear column">
                             Home
                     </NavLink>
@@ -33,7 +33,7 @@ class AppMenu extends React.Component {
                             {name}
                         </NavLink>
                         )) 
-                    : 'no categories to select from'
+                    : <div>no categories to select from</div>
                     }
                     <AddButton type="post" url="/create"/>
                 </div> 

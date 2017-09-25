@@ -70,7 +70,7 @@ class PostsList extends React.Component {
             posts.filter((post) => !post.deleted).map((post, index) => (
               <Post content={post} history={this.props.history} key={index}/> 
             )) 
-            : 'no posts to show'
+            : <div>no posts to show</div>
         }
       </div>
       )

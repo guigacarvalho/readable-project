@@ -20,7 +20,7 @@ class CommentList extends React.Component {
             filteredComents.filter((comment) => !comment.deleted).map((comment, index) => (
               <Comment content={comment} key={index}/>
             ))
-            : 'no comments to show'
+            : <div>no comments to show</div>
         }
         <br />
       </div>

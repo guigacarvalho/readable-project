@@ -17,12 +17,14 @@ class PostDetail extends React.Component {
     return (
       <div>
         {
-          post ?
-          <div>
-            <Post content={post} history={this.props.history} /> 
-            <CommentList post={post}/>
-          </div>
-            : 'no posts to show'
+          post 
+            ? <div>
+                <Post content={post} history={this.props.history} /> 
+                <CommentList post={post}/>
+              </div>
+            : <div>
+                no posts to show
+              </div>
         }
       </div>
       )
