@@ -26,7 +26,7 @@ class PostAdd extends React.Component {
     }
 
     render() {
-        const categories = this.props.categories
+        const { categories } = this.props
         return (
             <form onSubmit={this.submit}>
                 <h3 className="spacing-top border-bottom spacing-bottom">Adding a Post</h3>
