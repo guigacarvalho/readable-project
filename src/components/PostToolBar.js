@@ -1,4 +1,5 @@
 import React from 'react'
+import emoji from 'react-easy-emoji'
 import * as Actions from '../actions/'
 import { connect } from 'react-redux'
 
@@ -25,10 +26,10 @@ class PostToolBar extends React.Component {
     return (
       <div>
         <button className="button button-clear button-small controls"># {updatedPost.voteScore}</button> |
-        <button className="button button-clear button-small controls"><span role="img" aria-label="upvote" onClick={()=>this.upVote(updatedPost.id)}>👍</span></button> |
-        <button className="button button-clear button-small controls"><span role="img" aria-label="downvote" onClick={()=>this.downVote(updatedPost.id)}>👎</span></button> |
-        <button className="button button-clear button-small controls"><span role="img" aria-label="edit" onClick={()=>this.editPost(updatedPost.id)}>📝</span></button> |
-        <button className="button button-clear button-small controls"><span role="img" aria-label="delete" onClick={()=>this.deletePost(updatedPost.id)}>❌</span></button>
+        <button className="button button-clear button-small controls"><span role="img" aria-label="upvote" onClick={()=>this.upVote(updatedPost.id)}>{ emoji('👍') }</span></button> |
+        <button className="button button-clear button-small controls"><span role="img" aria-label="downvote" onClick={()=>this.downVote(updatedPost.id)}>{ emoji('👎') }</span></button> |
+        <button className="button button-clear button-small controls"><span role="img" aria-label="edit" onClick={()=>this.editPost(updatedPost.id)}>{ emoji('📝') }</span></button> |
+        <button className="button button-clear button-small controls"><span role="img" aria-label="delete" onClick={()=>this.deletePost(updatedPost.id)}>{ emoji('❌') }</span></button>
       </div>
     )
   }
