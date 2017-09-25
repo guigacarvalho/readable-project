@@ -4,10 +4,6 @@ import * as Actions from '../actions/'
 import Post from './Post'
 
 class PostsList extends React.Component {
-  state = {
-    sorting: '-timestamp'
-  }
-
   upVote(postId) {
     this.props.dispatch(Actions.voteUp(postId));
   }
@@ -35,7 +31,7 @@ class PostsList extends React.Component {
   }
   handleSorting(e) {
     const sorting = e.target.value;
-    this.setState({sorting});
+    this.props.dispatch(Actions.updateSorting(sorting));
     this.props.dispatch(Actions.sortPosts(sorting));
   }
   componentDidMount() {
@@ -46,7 +42,7 @@ class PostsList extends React.Component {
     if (nextProps.location !== this.props.location) {
       this.updatePostsList(nextProps)
     }
-    this.props.dispatch(Actions.sortPosts(this.state.sorting));
+    this.props.dispatch(Actions.sortPosts(this.props.sorting));
   }
 
   
@@ -60,7 +56,7 @@ class PostsList extends React.Component {
               Array.isArray(posts) ? (
               <div>
                 Sort by:
-                <select onChange={(e)=>this.handleSorting(e)} value={this.state.sorting}>
+                <select onChange={(e)=>this.handleSorting(e)} value={this.props.sorting}>
                   <option value="-timestamp">Most Recent</option>
                   <option value="timestamp">Least Recent</option>
                   <option value="-voteScore">Most Popular</option>
@@ -83,6 +79,7 @@ class PostsList extends React.Component {
 
 const mapStateToProps = (state, props) => ({
   posts: state.posts,
+  sorting: state.sorting,
 });
 
 export default connect(mapStateToProps)(PostsList);

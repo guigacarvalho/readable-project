@@ -16,6 +16,8 @@ export const GET_POSTS_FROM_CATEGORIES = 'GET_POSTS_FROM_CATEGORIES';
 export const ADD_COMMENT = 'ADD_COMMENT';
 export const GET_COMMENTS = 'GET_COMMENTS';
 
+export const UPDATE_SORTING = 'UPDATE_SORTING';
+
 export function getAllPosts (posts) {
     return {
         type: GET_POSTS,
@@ -121,7 +123,6 @@ export function editingPost (post) {
     }
 }
 
-
 export const addPost = (post) => dispatch => (
     PostAPI
         .addPost(post)
@@ -140,7 +141,6 @@ export const editPost = (postId) => dispatch => (
         .editPost(postId)
         .then(post => dispatch(updatePost(post)))
 );
-
 
 export function updatePost (post) {
     return {
@@ -168,18 +168,22 @@ export function sortPosts (sorting) {
     }
 }
 
-
 export const addComment = (comment) => dispatch => (
     CommentAPI
         .addComment(comment)
         .then(comment => dispatch(insertComment(comment)))    
 );
 
-
 export function insertComment (comment) {
-    debugger;
     return {
         type: ADD_COMMENT,
         comment
+    }
+}
+
+export function updateSorting (sorting) {
+    return {
+        type: UPDATE_SORTING,
+        sorting
     }
 }

@@ -9,6 +9,10 @@ import {
     GET_POST,
     HANDLE_SORTING,
     ADD_COMMENT,
+    // EDIT_COMMENT,
+    // EDITING_COMMENT, 
+    // REMOVE_COMMENT,
+    UPDATE_SORTING,
     GET_COMMENTS,
     GET_POSTS_FROM_CATEGORIES,
     GET_CATEGORIES } from '../actions'
@@ -18,7 +22,8 @@ const initialState = {
     categories: [],
     editingPost:{},
     editingComment: {},
-    comments: []
+    comments: [],
+    sorting: '-timestamp'
 };
 
 export default function reducer (state = initialState, action) {
@@ -94,6 +99,12 @@ export default function reducer (state = initialState, action) {
             return {
                 ...state,
                 comments: [...state.comments, action.comment]
+            };
+            
+        case UPDATE_SORTING:
+            return {
+                ...state,
+                sorting: action.sorting
             };
             
         default:
