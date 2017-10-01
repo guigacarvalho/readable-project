@@ -13,7 +13,13 @@ export const addComment = (data) =>
     body: JSON.stringify(data),
     })
     .then(res => res.json())
-              
+
+export const deleteComment = (commentId) =>
+  fetch(`${rootUrl}/comments/${commentId}`, { 
+      headers,
+      method: 'DELETE',
+      })
+                      
 export const upVote = (commentId) =>     
 fetch(`${rootUrl}/comments/${commentId}`, { 
     headers,
