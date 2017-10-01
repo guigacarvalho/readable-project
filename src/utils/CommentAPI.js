@@ -13,4 +13,21 @@ export const addComment = (data) =>
     body: JSON.stringify(data),
     })
     .then(res => res.json())
-  
+              
+export const upVote = (commentId) =>     
+fetch(`${rootUrl}/comments/${commentId}`, { 
+    headers,
+    method: 'POST',
+    body: JSON.stringify({ option: 'upVote' }),
+    })
+    .then(res => res.json())
+        
+export const downVote = (commentId) =>
+fetch(`${rootUrl}/comments/${commentId}`, { 
+    headers,
+    method: 'POST',
+    body: JSON.stringify({ option: 'downVote' }),
+    })
+    .then(res => res.json())
+        
+    
