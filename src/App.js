@@ -7,6 +7,7 @@ import PostAdd from './components/PostAdd'
 import PostEdit from './components/PostEdit'
 import PostDetail from './components/PostDetail'
 import CommentAdd from './components/CommentAdd'
+import CommentEdit from './components/CommentEdit'
 import AppMenu from './components/AppMenu'
 
 class App extends Component {
@@ -36,6 +37,9 @@ class App extends Component {
           {/* Comments Routes */}
           <Route exact path='/post/:id/comment' render={({history, match}) => (
             <CommentAdd history={history} match={match}/>
+          )}/>
+          <Route exact path='/editComment/:id' render={({history, match}) => (
+            <CommentEdit history={history} match={match}/>
           )}/>
         </div>
       </BrowserRouter>

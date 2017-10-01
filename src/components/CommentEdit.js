@@ -1,18 +1,22 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import * as Actions from '../actions/'
-import uuid from '../utils/uuid'
 
 class CommentAdd extends React.Component {
     
     state = {
-        id: uuid(),
         timestamp: Date.now(),
         body: '',
         author: '',
         parentId: '',
     }
-
+    
+    componentWillMount() {
+        const commentId = this.props.match.params.id;
+        this.props.dispatch(Actions.modifyComment(commentId)).then(() =>
+            this.setState(this.props.editingComment)
+        );
+    }
 
     handleInputChange = (event) => {
         const target = event.target;
@@ -22,29 +26,21 @@ class CommentAdd extends React.Component {
           [name]: value
         });
     }
-    
-    componentWillMount() {
-        const postId = this.props.match.params.id;
-        this.setState({parentId: postId});
-        this.props.dispatch(Actions.modifyPost(postId));
-    }
 
     submit = (e) => {
         e.preventDefault();
-        this.props.dispatch(Actions.addComment(this.state));
+        this.props.dispatch(Actions.editComment(this.state));
         this.props.history.push('/post/'+this.state.parentId);        
     }
     
     render() {
         return (
             <form onSubmit={this.submit}>
-                <h3 className="spacing-top border-bottom spacing-bottom">Adding a Comment</h3>
-                <small>"{this.props.editingPost.title}"</small>
-                <hr/>
+                <h3 className="spacing-top border-bottom spacing-bottom">Editing a Comment</h3>
                 <label>Comment</label>
-                <textarea onChange={this.handleInputChange} placeholder="This is my awesome comment! Behold my knowledge and wit." required name="body"></textarea>
+                <textarea onChange={this.handleInputChange} placeholder="This is my awesome comment! Behold my knowledge and wit." required name="body" value={this.state.body}></textarea>
                 <label>Name</label>
-                <input onChange={this.handleInputChange} type="text" placeholder="Bruce Wayne" required name="author"/>
+                <input onChange={this.handleInputChange} type="text" placeholder="Bruce Wayne" required name="author"  value={this.state.author}/>
                 <div>
                     <button className="button button-small" type="submit">Submit</button>
                 </div>
@@ -53,8 +49,7 @@ class CommentAdd extends React.Component {
     }
 }
 const mapStateToProps = (state, props) => ({
-    categories: state.categories,
-    editingPost: state.editingPost
+    editingComment: state.editingComment
 });
   
 export default connect(mapStateToProps)(CommentAdd);

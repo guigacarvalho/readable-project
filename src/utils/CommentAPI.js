@@ -21,12 +21,12 @@ export const deleteComment = (commentId) =>
       })
                       
 export const upVote = (commentId) =>     
-fetch(`${rootUrl}/comments/${commentId}`, { 
-    headers,
-    method: 'POST',
-    body: JSON.stringify({ option: 'upVote' }),
-    })
-    .then(res => res.json())
+  fetch(`${rootUrl}/comments/${commentId}`, { 
+      headers,
+      method: 'POST',
+      body: JSON.stringify({ option: 'upVote' }),
+      })
+      .then(res => res.json())
         
 export const downVote = (commentId) =>
 fetch(`${rootUrl}/comments/${commentId}`, { 
@@ -36,4 +36,18 @@ fetch(`${rootUrl}/comments/${commentId}`, {
     })
     .then(res => res.json())
         
-    
+export const getComment = (commentId) =>
+fetch(`${rootUrl}/comments/${commentId}`, { 
+    headers,
+    method: 'GET',
+    })
+    .then(res => res.json())
+  
+export const editComment = (data) =>
+fetch(`${rootUrl}/comments/${data.id}`, { 
+    headers,
+    method: 'PUT',
+    body: JSON.stringify(data),
+    })
+    .then(res => res.json())
+  

@@ -20,7 +20,7 @@ class PostDetail extends React.Component {
           post 
             ? <div>
                 <Post content={post} history={this.props.history} /> 
-                <CommentList post={post}/>
+                <CommentList post={post} history={this.props.history}/>
               </div>
             : <div>
                 no posts to show

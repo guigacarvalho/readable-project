@@ -1,6 +1,6 @@
 import sortBy from 'sort-by'
 
-import { 
+import {
     ADD_POST, 
     EDIT_POST,
     EDITING_POST, 
@@ -9,9 +9,9 @@ import {
     GET_POST,
     HANDLE_SORTING,
     ADD_COMMENT,
-    // EDIT_COMMENT,
-    // EDITING_COMMENT, 
-    // REMOVE_COMMENT,
+    EDIT_COMMENT,
+    EDITING_COMMENT, 
+    REMOVE_COMMENT,
     UPDATE_SORTING,
     GET_COMMENTS,
     GET_POSTS_FROM_CATEGORIES,
@@ -65,6 +65,12 @@ export default function reducer (state = initialState, action) {
                 ...state,
                 editingPost: action.post
             };
+            
+        case EDITING_COMMENT:
+            return {
+                ...state,
+                editingComment: action.comment
+            };
 
         case EDIT_POST:
             const postIndex = state.posts.findIndex((post) => action.post.id === post.id)
@@ -73,6 +79,24 @@ export default function reducer (state = initialState, action) {
             return {...state, 
                 posts:
                     [...posts]
+            };
+            
+        case EDIT_COMMENT:
+            const commentIndex = state.comments.findIndex((comment) => action.comment.id === comment.id)
+            const {comments} = state
+            comments[commentIndex] = action.comment
+            return {...state, 
+                comments:
+                    [...comments]
+            };
+            
+            
+        case REMOVE_COMMENT:
+            const remainingComments = state.comments.filter((comment) => action.commentId !== comment.id)
+            
+            return {
+                ...state,
+                comments: remainingComments
             };
             
         case REMOVE_POST:

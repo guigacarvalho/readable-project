@@ -5,11 +5,11 @@ import Post from './Post'
 
 class PostsList extends React.Component {
   upVote(postId) {
-    this.props.dispatch(Actions.voteUp(postId));
+    this.props.dispatch(Actions.voteUpPost(postId));
   }
 
   downVote(postId){
-    this.props.dispatch(Actions.voteDown(postId));
+    this.props.dispatch(Actions.voteDownPost(postId));
   }
 
   deletePost(postId) {

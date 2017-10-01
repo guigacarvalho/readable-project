@@ -14,6 +14,9 @@ export const GET_CATEGORIES = 'GET_CATEGORIES';
 export const GET_POSTS_FROM_CATEGORIES = 'GET_POSTS_FROM_CATEGORIES';
 
 export const ADD_COMMENT = 'ADD_COMMENT';
+export const EDIT_COMMENT = 'EDIT_COMMENT';
+export const EDITING_COMMENT = 'EDITING_COMMENT';
+export const REMOVE_COMMENT = 'REMOVE_COMMENT';
 export const GET_COMMENTS = 'GET_COMMENTS';
 
 export const UPDATE_SORTING = 'UPDATE_SORTING';
@@ -58,31 +61,43 @@ export function getCategories (categories) {
     }
 }
 
-export const voteUp = (postId) => dispatch => (
+export const voteUpPost = (id) => dispatch => (
     PostAPI
-        .upVote(postId)
-        .then(post => dispatch(upVotePost(post)))    
+        .upVote(id)
+        .then(post => dispatch(updatePost(post)))
 );
 
-export function upVotePost (post) {
+export const voteUpComment = (id) =>  dispatch => (    
+    CommentAPI
+        .upVote(id)
+        .then(comment => dispatch(updateComment(comment)))    
+);
+
+export const editComment = (comment) => dispatch => (
+    CommentAPI
+        .editComment(comment)
+        .then(comment => dispatch(updateComment(comment)))
+);
+
+
+export function updateComment (comment) {
     return {
-        type: EDIT_POST,
-        post
+        type: EDIT_COMMENT,
+        comment
     }
 }
 
-export const voteDown = (postId) => dispatch => (
+export const voteDownPost = (postId) => dispatch => (
     PostAPI
         .downVote(postId)
-        .then(post => dispatch(downVotePost(post)))    
+        .then(post => dispatch(updatePost(post)))    
 );
 
-export function downVotePost (post) {
-    return {
-        type: EDIT_POST,
-        post
-    }
-}
+export const voteDownComment = (commentId) => dispatch => (
+    CommentAPI
+        .downVote(commentId)
+        .then(comment => dispatch(updateComment(comment)))    
+);
 
 export const retrievePost = (postId) => dispatch => (
     PostAPI
@@ -122,6 +137,18 @@ export function editingPost (post) {
         post,
     }
 }
+export const modifyComment = (commentId) => dispatch => (
+    CommentAPI
+        .getComment(commentId)
+        .then(comment => dispatch(editingComment(comment)))
+);
+
+export function editingComment (comment) {
+    return {
+        type: EDITING_COMMENT,
+        comment,
+    }
+}
 
 export const addPost = (post) => dispatch => (
     PostAPI
@@ -136,9 +163,9 @@ export function insertPost (post) {
     }
 }
 
-export const editPost = (postId) => dispatch => (
+export const editPost = (post) => dispatch => (
     PostAPI
-        .editPost(postId)
+        .editPost(post)
         .then(post => dispatch(updatePost(post)))
 );
 
@@ -158,6 +185,17 @@ export function removePost (postId) {
     return {
         type: REMOVE_POST,
         postId
+    }
+}
+export const deleteComment = (commentId) => dispatch => {
+    CommentAPI.deleteComment(commentId);
+    dispatch(removeComment(commentId));
+}
+
+export function removeComment (commentId) {
+    return {
+        type: REMOVE_COMMENT,
+        commentId
     }
 }
 
