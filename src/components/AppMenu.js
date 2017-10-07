@@ -23,13 +23,13 @@ class AppMenu extends React.Component {
             <div className="border-top border-bottom spacing-top  spacing-bottom">
                 <div onClick={this.toggleMenu} className={`${this.menuState()} menu-icon`}></div>    
                 <div className={`${this.menuState()} menu row  spacing-top  spacing-bottom`}>
-                    <NavLink to="/" className="button button-small button-clear column">
+                    <NavLink to="/" onClick={this.toggleMenu} className="button button-small button-clear column">
                             Home
                     </NavLink>
                     {
                     Array.isArray(categories) 
                     ? categories.map(({name, path}) => (
-                        <NavLink to={`/category/${path}`} key={path} className="button button-small button-clear column">
+                        <NavLink to={`/category/${path}`} onClick={this.toggleMenu} key={path} className="button button-small button-clear column">
                             {name}
                         </NavLink>
                         )) 
