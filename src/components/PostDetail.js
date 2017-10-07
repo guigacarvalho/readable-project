@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import * as Actions from '../actions/'
 import CommentList from './CommentList'
 import Post from './Post'
+import NotFound from './NotFound'
 
 class PostDetail extends React.Component {
   componentDidMount() {
@@ -24,7 +25,7 @@ class PostDetail extends React.Component {
                 <CommentList post={post} history={this.props.history}/>
               </div>
             : <div>
-                Sorry, nothing to see here..
+                <NotFound />
               </div>
         }
       </div>
