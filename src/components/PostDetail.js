@@ -14,16 +14,17 @@ class PostDetail extends React.Component {
   render(){
     const {posts} = this.props
     const post = posts[0]
+    // debugger;
     return (
       <div>
         {
-          post 
+          post && post.hasOwnProperty('id')
             ? <div>
                 <Post content={post} history={this.props.history} /> 
                 <CommentList post={post} history={this.props.history}/>
               </div>
             : <div>
-                no posts to show
+                Sorry, nothing to see here..
               </div>
         }
       </div>
