@@ -9,15 +9,17 @@ class CommentList extends React.Component {
 
   render(){
     const {comments} = this.props
-    const filteredComents = comments.filter((stateComment)=> stateComment.parentId === this.props.post.id) 
-    
+    const filteredComents = comments
+      .filter((stateComment)=> stateComment.parentId === this.props.post.id)
+      .filter((comment) => !comment.deleted)
+
     return (
       <div className="strong-border-top">
           <br />
           <label>Comments</label>
         {
           Array.isArray(filteredComents) && filteredComents.length > 0 ? 
-            filteredComents.filter((comment) => !comment.deleted).map((comment, index) => (
+            filteredComents.map((comment, index) => (
               <Comment content={comment} key={index}  history={this.props.history}/>
             ))
             : <div>no comments to show</div>

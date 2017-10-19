@@ -9,7 +9,8 @@ const NotFound = () => (
         <h2>404 Not Found</h2>
         <div>Sorry, nothing to see here..</div>
         <NavLink to="/" className="button button-small button-clear column">Go home</NavLink>
+        <NavLink to="/create" className="button button-small button-clear column">Add a post</NavLink>
     </center>
-);
+)
 
 export default NotFound

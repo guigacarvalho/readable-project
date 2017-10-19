@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import * as Actions from '../actions/'
+import { fetchCategories } from '../actions/post'
 import {NavLink} from 'react-router-dom'
 import AddButton from './AddButton'
 
@@ -15,7 +15,7 @@ class AppMenu extends React.Component {
         return this.state.collapsed ? 'closed' : 'open'
     }
     componentDidMount() {
-        this.props.dispatch(Actions.fetchCategories());
+        this.props.fetchCategories();
     }
     render(){
         const categories = this.props.categories
@@ -45,4 +45,4 @@ const mapStateToProps = (state, props) => ({
     categories: state.categories,
 });
   
-export default connect(mapStateToProps)(AppMenu);
+export default connect(mapStateToProps, { fetchCategories })(AppMenu);

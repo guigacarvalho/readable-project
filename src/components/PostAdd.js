@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import * as Actions from '../actions/'
+import { addPost } from '../actions/post'
 import uuid from '../utils/uuid'
 
 class PostAdd extends React.Component {
@@ -21,7 +21,7 @@ class PostAdd extends React.Component {
 
     submit = (e) => {
         e.preventDefault();
-        this.props.dispatch(Actions.addPost(this.state));
+        this.props.addPost(this.state);
         this.props.history.push('/');        
     }
 
@@ -58,4 +58,4 @@ const mapStateToProps = (state, props) => ({
     categories: state.categories,
   });
   
-export default connect(mapStateToProps)(PostAdd);
+export default connect(mapStateToProps, { addPost })(PostAdd);

@@ -1,19 +1,28 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import * as Actions from '../actions/'
+import {
+  voteDownPost,
+  voteUpPost,
+  deletePost,
+  fetchPostsFromCategory,
+  fetchPosts,
+  updateSorting,
+  sortPosts,
+} from '../actions/post'
 import Post from './Post'
+import NotFound from './NotFound'
 
 class PostsList extends React.Component {
   upVote(postId) {
-    this.props.dispatch(Actions.voteUpPost(postId));
+    this.props.voteUpPost(postId);
   }
 
   downVote(postId){
-    this.props.dispatch(Actions.voteDownPost(postId));
+    this.props.voteDownPost(postId);
   }
 
   deletePost(postId) {
-    this.props.dispatch(Actions.deletePost(postId));
+    this.props.deletePost(postId);
   }
 
   editPost(postId) {
@@ -23,16 +32,16 @@ class PostsList extends React.Component {
     const category = props.match.params.path;
     if(category) {
       // Get posts from specific Category
-      this.props.dispatch(Actions.fetchPostsFromCategory(category));
+      this.props.fetchPostsFromCategory(category);
     } else {
       // Get posts from all Categories
-      this.props.dispatch(Actions.fetchPosts());
+      this.props.fetchPosts();
     }
   }
   handleSorting(e) {
     const sorting = e.target.value;
-    this.props.dispatch(Actions.updateSorting(sorting));
-    this.props.dispatch(Actions.sortPosts(sorting));
+    this.props.updateSorting(sorting);
+    this.props.sortPosts(sorting);
   }
   componentDidMount() {
     this.updatePostsList(this.props);
@@ -42,7 +51,7 @@ class PostsList extends React.Component {
     if (nextProps.location !== this.props.location) {
       this.updatePostsList(nextProps)
     }
-    this.props.dispatch(Actions.sortPosts(this.props.sorting));
+    this.props.sortPosts(this.props.sorting);
   }
 
   
@@ -66,11 +75,11 @@ class PostsList extends React.Component {
               ) : ''
           }
         {
-          Array.isArray(posts) && posts.length > 0 ? 
+          Array.isArray(posts) && posts.filter((post) => !post.deleted).length > 0 ? 
             posts.filter((post) => !post.deleted).map((post, index) => (
               <Post content={post} history={this.props.history} key={index}/> 
             )) 
-            : <div>no posts to show</div>
+            : <NotFound/>
         }
       </div>
       )
@@ -80,6 +89,14 @@ class PostsList extends React.Component {
 const mapStateToProps = (state, props) => ({
   posts: state.posts,
   sorting: state.sorting,
-});
+})
 
-export default connect(mapStateToProps)(PostsList);
+export default connect(mapStateToProps, {
+  voteDownPost,
+  voteUpPost,
+  deletePost,
+  fetchPostsFromCategory,
+  fetchPosts,
+  updateSorting,
+  sortPosts,
+})(PostsList)

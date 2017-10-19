@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import * as Actions from '../actions/'
+import { addComment } from '../actions/comment'
+import { modifyPost } from '../actions/post'
 import uuid from '../utils/uuid'
 
 class CommentAdd extends React.Component {
@@ -26,12 +27,12 @@ class CommentAdd extends React.Component {
     componentWillMount() {
         const postId = this.props.match.params.id;
         this.setState({parentId: postId});
-        this.props.dispatch(Actions.modifyPost(postId));
+        this.props.modifyPost(postId);
     }
 
     submit = (e) => {
         e.preventDefault();
-        this.props.dispatch(Actions.addComment(this.state));
+        this.props.addComment(this.state);
         this.props.history.push('/post/'+this.state.parentId);        
     }
     
@@ -57,4 +58,4 @@ const mapStateToProps = (state, props) => ({
     editingPost: state.editingPost
 });
   
-export default connect(mapStateToProps)(CommentAdd);
+export default connect(mapStateToProps, { addComment, modifyPost })(CommentAdd);

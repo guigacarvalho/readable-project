@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import * as Actions from '../actions/'
+import { retrievePost } from '../actions/post'
+import { retrieveComments} from '../actions/comment'
 import CommentList from './CommentList'
 import Post from './Post'
 import NotFound from './NotFound'
@@ -8,14 +9,14 @@ import NotFound from './NotFound'
 class PostDetail extends React.Component {
   componentDidMount() {
     const {id} = this.props.match.params
-    this.props.dispatch(Actions.retrievePost(id));
-    this.props.dispatch(Actions.retrieveComments(id));
+    this.props.retrievePost(id)
+    this.props.retrieveComments(id)
   }
 
   render(){
     const {posts} = this.props
-    const post = posts[0]
-    // debugger;
+    const post = posts ? posts[0] : null;
+
     return (
       <div>
         {
@@ -36,6 +37,6 @@ class PostDetail extends React.Component {
 const mapStateToProps = (state, props) => ({
   posts: state.posts,
   comments: state.comments,
-});
+})
 
-export default connect(mapStateToProps)(PostDetail);
+export default connect(mapStateToProps, { retrieveComments, retrievePost })(PostDetail)

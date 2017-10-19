@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import * as Actions from '../actions/'
+import { editPost, modifyPost } from '../actions/post'
 
 class PostEdit extends React.Component {
     state = {
@@ -13,24 +13,24 @@ class PostEdit extends React.Component {
 
     componentWillMount() {
         const postId = this.props.match.params.id;
-        this.props.dispatch(Actions.modifyPost(postId)).then(() =>
+        this.props.modifyPost(postId).then(() =>
             this.setState(this.props.editingPost)
-        );   
+        )
     }
 
     handleInputChange = (event) => {
-        const target = event.target;
-        const value = target.value;
-        const name = target.name;
+        const target = event.target
+        const value = target.value
+        const name = target.name
         this.setState({
           [name]: value
-        });
+        })
     }
 
     submit = (e) => {
-        e.preventDefault();
-        this.props.dispatch(Actions.editPost(this.state));
-        this.props.history.push('/');
+        e.preventDefault()
+        this.props.editPost(this.state)
+        this.props.history.push('/')
     }
 
     render() {
@@ -65,6 +65,6 @@ class PostEdit extends React.Component {
 const mapStateToProps = (state, props) => ({
     categories: state.categories,
     editingPost: state.editingPost
-});
+})
   
-export default connect(mapStateToProps)(PostEdit);
+export default connect(mapStateToProps, { editPost, modifyPost })(PostEdit)

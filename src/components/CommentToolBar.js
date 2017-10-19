@@ -1,28 +1,29 @@
 import React from 'react'
 import emoji from 'react-easy-emoji'
-import * as Actions from '../actions/'
+import { voteDownComment, voteUpComment, deleteComment } from '../actions/comment'
 import { connect } from 'react-redux'
 
 class CommentToolBar extends React.Component {
   upVote(commentId) {
-    this.props.dispatch(Actions.voteUpComment(commentId));
+    this.props.voteUpComment(commentId)
   }
 
   downVote(commentId){
-    this.props.dispatch(Actions.voteDownComment(commentId));
+    this.props.voteDownComment(commentId)
   }
 
   deleteComment(commentId) {
-    this.props.dispatch(Actions.deleteComment(commentId));
+    this.props.deleteComment(commentId)
   }
 
   editComment(commentId) {
-    this.props.history.push(`/editComment/${commentId}`);  
+    this.props.history.push(`/editComment/${commentId}`)
   }
 
   render(){
     const {comment} = this.props
     const [updatedComment] = this.props.comments.filter((commentFromState)=> commentFromState.id === comment.id) 
+    
     return (
       <div className="CommentToolBar">
         <button className="button button-clear button-small controls"># {updatedComment.voteScore}</button> |
@@ -39,5 +40,4 @@ const mapStateToProps = (state, props) => ({
   comments: state.comments,
 });
 
-
-export default connect(mapStateToProps)(CommentToolBar)
+export default connect(mapStateToProps, { voteDownComment, voteUpComment, deleteComment })(CommentToolBar)
