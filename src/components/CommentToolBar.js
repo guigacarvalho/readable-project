@@ -37,7 +37,7 @@ class CommentToolBar extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  comments: state.comments,
+  comments: state.commentsReducer.comments,
 });
 
 export default connect(mapStateToProps, { voteDownComment, voteUpComment, deleteComment })(CommentToolBar)

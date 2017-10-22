@@ -54,8 +54,8 @@ class CommentAdd extends React.Component {
     }
 }
 const mapStateToProps = (state, props) => ({
-    categories: state.categories,
-    editingPost: state.editingPost
+    categories: state.postsReducer.categories,
+    editingPost: state.postsReducer.editingPost
 });
   
 export default connect(mapStateToProps, { addComment, modifyPost })(CommentAdd);

@@ -35,8 +35,8 @@ class PostDetail extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  posts: state.posts,
-  comments: state.comments,
+  posts: state.postsReducer.posts,
+  comments: state.commentsReducer.comments,
 })
 
 export default connect(mapStateToProps, { retrieveComments, retrievePost })(PostDetail)

@@ -42,7 +42,7 @@ class AppMenu extends React.Component {
     }
 }
 const mapStateToProps = (state, props) => ({
-    categories: state.categories,
+    categories: state.postsReducer.categories,
 });
   
 export default connect(mapStateToProps, { fetchCategories })(AppMenu);

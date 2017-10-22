@@ -87,8 +87,8 @@ class PostsList extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  posts: state.posts,
-  sorting: state.sorting,
+  posts: state.postsReducer.posts,
+  sorting: state.postsReducer.sorting,
 })
 
 export default connect(mapStateToProps, {
