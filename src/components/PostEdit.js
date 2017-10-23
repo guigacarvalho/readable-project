@@ -34,7 +34,7 @@ class PostEdit extends React.Component {
     }
 
     render() {
-        const categories = this.props.categories
+        const { categories } = this.props
         return (
             <form onSubmit={this.submit}>
                 Edit Post Form

@@ -18,7 +18,7 @@ class AppMenu extends React.Component {
         this.props.fetchCategories();
     }
     render(){
-        const categories = this.props.categories
+        const { categories } = this.props
         return (
             <div className="border-top border-bottom spacing-top  spacing-bottom">
                 <div onClick={this.toggleMenu} className={`${this.menuState()} menu-icon`}></div>    

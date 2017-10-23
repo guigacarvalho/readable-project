@@ -33,7 +33,7 @@ class CommentAdd extends React.Component {
     submit = (e) => {
         e.preventDefault();
         this.props.addComment(this.state);
-        this.props.history.push('/post/'+this.state.parentId);        
+        this.props.history.push(`/post/${this.state.parentId}`);
     }
     
     render() {
