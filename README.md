@@ -15,7 +15,7 @@ Your default browser should open the app on http://localhost:3000/ and you'll pr
 
 ![Not Found](https://user-images.githubusercontent.com/3665969/31906704-a12a1ca4-b7e6-11e7-825c-24a5c6758706.png "Not Found app screen")
 
- because you're not running the app's backend. See the instructions below in order to run the backend.
+Because you're not running the app's backend, the app won't have any data to show. See the instructions below in order to run the backend.
 
 You can also use `yarn build` to build the app for production.
 
