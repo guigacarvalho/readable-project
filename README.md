@@ -11,7 +11,11 @@ git clone git@github.com:guigacarvalho/readable-project.git
 yarn && yarn start
 ```
 
-Your default browser should open the app on http://localhost:3000/ and you'll probably get the Not Found app screen because you're not running the app's backend. See the instructions below in order to run the backend.
+Your default browser should open the app on http://localhost:3000/ and you'll probably get the Not Found app screen.
+
+![Not Found](https://user-images.githubusercontent.com/3665969/31906704-a12a1ca4-b7e6-11e7-825c-24a5c6758706.png "Not Found app screen")
+
+Because you're not running the app's backend, the app won't have any data to show. See the instructions below in order to run the backend.
 
 You can also use `yarn build` to build the app for production.
 
